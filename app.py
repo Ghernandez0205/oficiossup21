@@ -37,26 +37,18 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
 
         doc = Document(TEMPLATE_PATH)
 
-        meses_es = {
-    'January': 'enero', 'February': 'febrero', 'March': 'marzo', 'April': 'abril',
-    'May': 'mayo', 'June': 'junio', 'July': 'julio', 'August': 'agosto',
-    'September': 'septiembre', 'October': 'octubre', 'November': 'noviembre', 'December': 'diciembre'
-}
+        # Fecha de comisión en español
+        mes_comision = meses_es[fecha_comision.strftime('%B')]
+        fecha_comision_str = f"{fecha_comision.day} de {mes_comision} del {fecha_comision.year}"
 
-mes_en_espanol = meses_es[fecha_comision.strftime('%B')]
-fecha_comision_str = f"{fecha_comision.day} de {mes_en_espanol} del {fecha_comision.year}"
-
-        for en, es in meses_es.items():
-            fecha_comision_str = fecha_comision_str.replace(en, es)
-
-            fecha_emision = datetime.now()
-mes_emision = meses_es[fecha_emision.strftime('%B')]
-emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
-
+        # Fecha de emisión (actual)
+        fecha_emision = datetime.now()
+        mes_emision = meses_es[fecha_emision.strftime('%B')]
+        emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
 
         for p in doc.paragraphs:
-            p.text = p.text.replace("emision", emision_str)
             p.text = p.text.replace("fecha", fecha_comision_str)
+            p.text = p.text.replace("emision", emision_str)
             p.text = p.text.replace("numero_oficio", num_oficio)
             p.text = p.text.replace("nombre", nombre)
             p.text = p.text.replace("apellido_paterno", apellido_paterno)
@@ -67,7 +59,7 @@ emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
             p.text = p.text.replace("horario", horario)
             p.text = p.text.replace("comision", comision)
 
-        nombre_archivo = f"oficio_{apellido_paterno}_{nombre.replace(' ', '_')}.docx"        
+        nombre_archivo = f"oficio_{apellido_paterno}_{nombre.replace(' ', '_')}.docx"
         ruta_archivo = os.path.join(output_folder, nombre_archivo)
         doc.save(ruta_archivo)
         archivos_generados.append(ruta_archivo)
