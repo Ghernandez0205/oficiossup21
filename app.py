@@ -37,7 +37,15 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
 
         doc = Document(TEMPLATE_PATH)
 
-        fecha_comision_str = fecha_comision.strftime('%d de %B de %Y')
+        meses_es = {
+    'January': 'enero', 'February': 'febrero', 'March': 'marzo', 'April': 'abril',
+    'May': 'mayo', 'June': 'junio', 'July': 'julio', 'August': 'agosto',
+    'September': 'septiembre', 'October': 'octubre', 'November': 'noviembre', 'December': 'diciembre'
+}
+
+mes_en_espanol = meses_es[fecha_comision.strftime('%B')]
+fecha_comision_str = f"{fecha_comision.day} de {mes_en_espanol} del {fecha_comision.year}"
+
         for en, es in meses_es.items():
             fecha_comision_str = fecha_comision_str.replace(en, es)
 
@@ -54,7 +62,7 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
             p.text = p.text.replace("horario", horario)
             p.text = p.text.replace("comision", comision)
 
-        nombre_archivo = f"oficio_{rfc}.docx"
+        nombre_archivo = f"oficio_{apellido_paterno}_{nombre.replace(' ', '_')}.docx"        
         ruta_archivo = os.path.join(output_folder, nombre_archivo)
         doc.save(ruta_archivo)
         archivos_generados.append(ruta_archivo)
