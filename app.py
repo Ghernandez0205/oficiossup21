@@ -101,6 +101,14 @@ if password != "defvm11":
 # Cargar datos
 try:
     df = pd.read_excel(EXCEL_PATH)
+
+# Limpieza de nombres de columnas
+df.columns = df.columns.str.strip()  # Quita espacios al inicio/final
+df.columns = df.columns.str.upper()  # Convierte todo a mayúsculas (opcional, pero recomendado)
+
+# Mostrar columnas disponibles para depurar (puedes eliminar esta línea después)
+st.write("🧾 Columnas detectadas en el Excel:", df.columns.tolist())
+
 except FileNotFoundError:
     st.error("El archivo Excel no se encuentra. Sube el archivo correcto en la carpeta datos/")
     st.stop()
