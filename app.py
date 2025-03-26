@@ -37,14 +37,15 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
 
         doc = Document(TEMPLATE_PATH)
 
-        # Fecha de comisión en español
+        # Fecha de comisión en español (seleccionada por el usuario)
         mes_comision = meses_es[fecha_comision.strftime('%B')]
         fecha_comision_str = f"{fecha_comision.day} de {mes_comision} del {fecha_comision.year}"
 
-        # Fecha de emisión (actual)
+        # Fecha de emisión (actual del sistema)
         fecha_emision = datetime.now()
         mes_emision = meses_es[fecha_emision.strftime('%B')]
         emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
+
 
         for p in doc.paragraphs:
             p.text = p.text.replace("fecha", fecha_comision_str)
