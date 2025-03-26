@@ -30,10 +30,10 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
     }
 
     for _, fila in data.iterrows():
-        nombre = fila['NOMBRE (S)']
+        nombre = fila['NOMBRE']
         apellido_paterno = fila['APELLIDO PATERNO']
         apellido_materno = fila['APELLIDO MATERNO']
-        rfc = fila['R.F.C. CON HOMONIMIA']
+        rfc = fila['RFC']
 
         doc = Document(TEMPLATE_PATH)
 
@@ -78,7 +78,7 @@ def actualizar_historial(data, num_oficio, comision):
 
     nuevo_historial = pd.DataFrame({
         "Número Consecutivo": [len(historial_df) + i + 1 for i in range(len(data))],
-        "Nombre": data['NOMBRE (S)'].values,
+        "Nombre": data['NOMBRE'].values,
         "Apellido Paterno": data['APELLIDO PATERNO'].values,
         "Apellido Materno": data['APELLIDO MATERNO'].values,
         "Número de Oficio": [num_oficio] * len(data),
@@ -112,7 +112,7 @@ except FileNotFoundError:
 selected_rows = st.multiselect(
     "👥 Selecciona los docentes",
     df.index,
-    format_func=lambda i: f"{df.loc[i, 'NOMBRE (S)']} {df.loc[i, 'APELLIDO PATERNO']} {df.loc[i, 'APELLIDO MATERNO']}"
+    format_func=lambda i: f"{df.loc[i, 'NOMBRE']} {df.loc[i, 'APELLIDO PATERNO']} {df.loc[i, 'APELLIDO MATERNO']}"
 )
 
 if selected_rows:
