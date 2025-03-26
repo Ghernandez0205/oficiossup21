@@ -49,8 +49,13 @@ fecha_comision_str = f"{fecha_comision.day} de {mes_en_espanol} del {fecha_comis
         for en, es in meses_es.items():
             fecha_comision_str = fecha_comision_str.replace(en, es)
 
+            fecha_emision = datetime.now()
+mes_emision = meses_es[fecha_emision.strftime('%B')]
+emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
+
+
         for p in doc.paragraphs:
-            p.text = p.text.replace("mes", fecha_comision.strftime('%B').capitalize())
+            p.text = p.text.replace("emision", emision_str)
             p.text = p.text.replace("fecha", fecha_comision_str)
             p.text = p.text.replace("numero_oficio", num_oficio)
             p.text = p.text.replace("nombre", nombre)
