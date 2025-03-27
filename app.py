@@ -41,10 +41,10 @@ def generar_oficio(data, num_oficio, sede, ubicacion, fecha_comision, horario, c
         mes_comision = meses_es[fecha_comision.strftime('%B')]
         fecha_comision_str = f"{fecha_comision.day} de {mes_comision} del {fecha_comision.year}"
 
-        # Fecha de emisión (actual del sistema)
-        fecha_emision = datetime.now()
-        mes_emision = meses_es[fecha_emision.strftime('%B')]
-        emision_str = f"{fecha_emision.day} de {mes_emision} del {fecha_emision.year}"
+        # Fecha de emision en español (seleccionada por el usuario)
+        mes_emision = meses_es[fecha_emision_manual.strftime('%B')]
+        emision_str = f"{fecha_emision_manual.day} de {mes_emision} del {fecha_emision_manual.year}"
+
 
 
         for p in doc.paragraphs:
@@ -129,6 +129,7 @@ num_oficio = st.text_input("📄 Número de Oficio")
 sede = st.text_input("🏫 Sede")
 ubicacion = st.text_input("📍 Ubicación")
 fecha_comision = st.date_input("📅 Fecha de Comisión")
+fecha_emision_manual = st.date_input("📆 Fecha de Emisión")
 horario = st.text_input("🕒 Horario")
 comision = st.text_input("🔖 Comisión")
 
